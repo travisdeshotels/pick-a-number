@@ -1,0 +1,2 @@
+class InvalidGuessException(Exception):
+    pass

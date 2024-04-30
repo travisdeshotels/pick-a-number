@@ -1,0 +1,5 @@
+.env
+venv
+game.db
+.idea
+__pycache__

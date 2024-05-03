@@ -1,6 +1,7 @@
 import dao.gamedao as dao
 from random import randint
-from exception import invalidguessexception
+
+from exception.invalidguessexception import InvalidGuessException
 
 
 def register_new_user(user_name, email):
@@ -8,9 +9,14 @@ def register_new_user(user_name, email):
 
 
 def play(secret_id, number):
-    if number not in range(1, 10):
-        raise invalidguessexception("Guess is not in range")
-    return dao.add_result(secret_id, randint(1, 10) == number)
+    if number not in range(1, 11):
+        raise InvalidGuessException("Guess is not in range")
+    correct_number = randint(1, 10)
+    result = dao.add_result(secret_id, correct_number == number)
+    result['guess'] = number
+    result['correct_number'] = correct_number
+    result['result'] = 'win' if correct_number == number else 'lose'
+    return result
 
 
 def scoreboard():

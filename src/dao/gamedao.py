@@ -13,7 +13,12 @@ def get_player_info_by_secret_id(secret_id):
         conn = sqlite3.connect(SQLITE_DB)
         cur = conn.cursor()
         cur.execute(query, (secret_id,))
-        return cur.fetchone()
+        data = cur.fetchone()
+        return {
+            "user": data[0],
+            "wins": data[1],
+            "total": data[2]
+        }
     except Exception as e:
         print(e)
         return None

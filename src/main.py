@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Header
 from pydantic import BaseModel
 from typing import Annotated
+from exception.invalidguessexception import InvalidGuessException
 
 import service.gameservice as service
 
@@ -23,7 +24,12 @@ def register(game_user: GameUser):
 
 @app.get("/")
 def play(secret: Annotated[str | None, Header()] = None, guess: int = 11):
-    return service.play(secret, guess)
+    try:
+        return service.play(secret, guess)
+    except InvalidGuessException:
+        return {
+            "message": "Guess a number between 1 and 10."
+        }
 
 
 @app.get("/scores")

@@ -53,7 +53,8 @@ def get_scoreboard():
     conn = None
     cur = None
     try:
-        query = "SELECT USERNAME, WINS FROM GamePlayers ORDER BY WINS DESC;"
+        query = "SELECT USERNAME, COUNT(WIN) AS `WINS` FROM PlayerGuesses WHERE WIN = 1 " + \
+                "GROUP BY WIN ORDER BY `WINS` DESC;"
         conn = sqlite3.connect(SQLITE_DB)
         cur = conn.cursor()
         cur.execute(query)

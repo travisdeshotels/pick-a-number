@@ -21,4 +21,13 @@ def play(secret_id, guess):
 
 
 def scoreboard():
-    return dao.get_scoreboard()
+    result = []
+    score_data = dao.get_scoreboard()
+    for score_datum in score_data:
+        result.append(
+            {
+                "player": score_datum[0],
+                "score": score_datum[1]
+            }
+        )
+    return result

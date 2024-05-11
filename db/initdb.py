@@ -1,7 +1,6 @@
 import os
 import sqlite3
 
-SQLITE_DB = os.environ['SQLITE_DB']
 
 queries = [
     "CREATE TABLE GamePlayers(" +
@@ -21,12 +20,12 @@ queries = [
 ]
 
 
-def init_db():
+def init_db(game_db):
     cur = None
     conn = None
     for query in queries:
         try:
-            conn = sqlite3.connect(SQLITE_DB)
+            conn = sqlite3.connect(game_db)
             cur = conn.cursor()
             cur.execute(query)
             conn.commit()
@@ -41,4 +40,6 @@ def init_db():
 
 
 if __name__ == '__main__':
-    init_db()
+    import sys
+    print(f'Filename provided was: {sys.argv[1]}')
+    init_db(sys.argv[1])

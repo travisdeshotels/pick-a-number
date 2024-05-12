@@ -1,0 +1,10 @@
+version: "2.23.0"
+services:
+    gameapi:
+        build: .
+        ports:
+            - 8000:8000
+        volumes:
+            - game:/app/db
+volumes:
+    game:

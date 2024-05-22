@@ -6,7 +6,7 @@ curl -d '{"userName":"me", "email":"foo@bar.goof"}' -H "Content-Type: applicatio
 ```  
 Play  
 ```
-curl -H "Content-Type: application/json" -H "Secret: ${SECRETID}" -X GET http://localhost:8000/?guess=3
+curl -H "Secret: ${SECRETID}" -X GET http://localhost:8000/?guess=3
 ```  
 Scoreboard  
 

@@ -25,6 +25,8 @@ def register(game_user: GameUser):
 @app.get("/")
 def play(secret: Annotated[str | None, Header()] = None, guess: int = 11):
     try:
+        if secret is None:
+            return {"message": "Missing secret id."}
         return service.play(secret, guess)
     except InvalidGuessException:
         return {

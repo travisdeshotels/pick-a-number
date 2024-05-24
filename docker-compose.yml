@@ -1,7 +1,7 @@
 version: "2.23.0"
 services:
     gameapi:
-        build: .
+        build: ./api
         ports:
             - 8000:8000
         volumes:

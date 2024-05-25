@@ -6,32 +6,29 @@ SQLITE_DB = os.environ['SQLITE_DB']
 
 
 def get_player_info_by_secret_id(secret_id):
-    total_played_query = "SELECT COUNT(*) FROM PlayerGuesses WHERE USERNAME=?"
-    total_wins_query = "SELECT COUNT(*) FROM PlayerGuesses WHERE WIN=1 AND USERNAME=?"
-    most_used_guess = "SELECT GUESS FROM (SELECT guess, COUNT(guess) as `num` " + \
-                      "FROM PlayerGuesses " + \
-                      "WHERE USERNAME = ? " + \
-                      "GROUP BY GUESS " + \
-                      "ORDER BY `num` DESC " + \
-                      "LIMIT 1)"
+    username_query = "SELECT USERNAME FROM GamePlayers WHERE SECRET_ID = ?"
+    total_played_query = "SELECT COUNT(*) FROM PlayerGuesses G INNER JOIN GamePlayers P ON G.USERNAME = P.USERNAME" \
+                         " WHERE P.SECRET_ID=?"
+    total_wins_query = "SELECT COUNT(*) FROM PlayerGuesses G INNER JOIN GamePlayers P ON G.USERNAME = P.USERNAME" \
+                       " WHERE G.WIN=1 AND P.SECRET_ID=?"
+    most_used_guess_query = "SELECT GUESS FROM (SELECT G.guess, COUNT(G.guess) as `num`" + \
+                            " FROM PlayerGuesses G INNER JOIN GamePlayers P ON G.USERNAME = P.USERNAME" + \
+                            " WHERE P.SECRET_ID = ?" + \
+                            " GROUP BY G.GUESS" + \
+                            " ORDER BY `num` DESC" + \
+                            " LIMIT 1)"
 
     conn = None
     cur = None
     try:
-        query = "SELECT USERNAME FROM GamePlayers WHERE SECRET_ID = ?;"
+        query = "SELECT ( " + total_played_query + "), (" + total_wins_query + "), " + \
+                "(" + most_used_guess_query + "), (" + username_query + ");"
         conn = sqlite3.connect(SQLITE_DB)
         cur = conn.cursor()
-        cur.execute(query, (secret_id,))
-        data = cur.fetchone()
-        username = data[0]
-
-        query = "SELECT ( " + total_played_query + "), (" + total_wins_query + "), (" + most_used_guess + ");"
-        conn = sqlite3.connect(SQLITE_DB)
-        cur = conn.cursor()
-        cur.execute(query, (username, username, username))
+        cur.execute(query, (secret_id, secret_id, secret_id, secret_id))
         data = cur.fetchone()
         return {
-            'username': username,
+            'username': data[3],
             'stats': {
                 'total': data[0],
                 'wins': data[1],
@@ -96,10 +93,10 @@ def add_play_result(secret_id, guess, result):
     cur = None
     try:
         query = "INSERT INTO PlayerGuesses(USERNAME, GUESS, WIN) " + \
-                 "VALUES(" + \
-                 "(SELECT USERNAME FROM GamePlayers WHERE SECRET_ID = ?)" + \
-                 ", ?" + \
-                 ", ?);"
+                "VALUES(" + \
+                "(SELECT USERNAME FROM GamePlayers WHERE SECRET_ID = ?)" + \
+                ", ?" + \
+                ", ?);"
         conn = sqlite3.connect(SQLITE_DB)
         cur = conn.cursor()
         cur.execute(query, (secret_id, guess, 1 if result else 0))

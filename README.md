@@ -4,3 +4,8 @@
 * SQLITE
 * Python
 * fastapi
+
+## Docker
+```
+docker compose up
+```

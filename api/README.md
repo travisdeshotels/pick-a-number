@@ -13,8 +13,3 @@ Scoreboard
 ```
 curl -X GET http://localhost:8000/scores
 ```
-
-## Docker
-```
-docker-compose up
-```

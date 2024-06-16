@@ -1,7 +1,7 @@
 import json
 import os
 import requests
-from ..exception.badinputexception import BadInputException
+from exception.badinputexception import BadInputException
 
 
 class PlayerConfig:

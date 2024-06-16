@@ -2,6 +2,7 @@ import dao.gamedao as dao
 from random import randint
 
 from exception.invalidguessexception import InvalidGuessException
+from exception.baddataexception import BadDataException
 
 
 def register_new_user(user_name, email):
@@ -13,6 +14,8 @@ def play(secret_id, guess):
         raise InvalidGuessException("Guess is not in range")
     correct_number = randint(1, 10)
     result = dao.add_play_result(secret_id, guess, correct_number == guess)
+    if result is None:
+        raise BadDataException('Unable to save play data! Bad data was provided.')
     result['result'] = {}
     result['result']['guess'] = guess
     result['result']['correctNumber'] = correct_number

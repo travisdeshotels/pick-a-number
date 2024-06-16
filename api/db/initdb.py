@@ -11,7 +11,7 @@ queries = [
     "--pragma foreign_keys = ON;",
     "CREATE TABLE PlayerGuesses(" +
     "ID integer primary key autoincrement," +
-    "USERNAME varchar(12)," +
+    "USERNAME varchar(12) not null," +
     "GUESS integer not null," +
     "WIN integer," +
     "foreign key (USERNAME)" +

@@ -1,4 +1,4 @@
-from lib.colors import bold_yellow
+from terminallibs.colors import bold_yellow
 from lib.playhelper import PlayHelper
 
 

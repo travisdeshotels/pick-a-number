@@ -1,0 +1,8 @@
+[project]
+name = "terminallibs"
+version = "0.1.0"
+description = "My libs for the terminal"
+
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core >= 3.9.0"]

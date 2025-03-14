@@ -1,15 +1,14 @@
 # Pick A Number API
 
-Register  
+Register
 ```
-curl -d '{"userName":"me", "email":"foo@bar.goof"}' -H "Content-Type: application/json" -X POST http://localhost:8000/register
-```  
-Play  
+SECRETID=$(curl -d '{"userName":"me", "email":"foo@bar.goof"}' -H "Content-Type: application/json" -X POST http://localhost:8000/register | jq -r .secretId)
 ```
-curl -H "Secret: ${SECRETID}" -X GET http://localhost:8000/?guess=3
-```  
-Scoreboard  
-
+Play
 ```
-curl -X GET http://localhost:8000/scores
+curl -H "Secret: ${SECRETID}" -X GET http://localhost:8000/?guess=3 | jq
+```
+Scoreboard
+```
+curl -X GET http://localhost:8000/scores | jq
 ```

@@ -1,8 +1,12 @@
+import logging
 import os
 import sqlite3
+import sys
 import uuid
 
-SQLITE_DB = os.environ['SQLITE_DB']
+if not (SQLITE_DB := os.environ.get('SQLITE_DB')):
+    logging.error('SQLITE_DB is not set! Set it to the location of your SQLITE database file!')
+    sys.exit()
 
 
 def get_player_info_by_secret_id(secret_id):

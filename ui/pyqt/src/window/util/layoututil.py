@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout
 
-def get_main_layout(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5, horizontal_layout6):
+def get_main_layout(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5, horizontal_layout6, horizontal_layout7):
     vertical_layout = QVBoxLayout()
     vertical_layout.addLayout(horizontal_layout1)
     vertical_layout.addLayout(horizontal_layout2)
@@ -8,6 +8,7 @@ def get_main_layout(horizontal_layout1, horizontal_layout2, horizontal_layout3, 
     vertical_layout.addLayout(horizontal_layout4)
     vertical_layout.addLayout(horizontal_layout5)
     vertical_layout.addLayout(horizontal_layout6)
+    vertical_layout.addLayout(horizontal_layout7)
 
     return vertical_layout
 

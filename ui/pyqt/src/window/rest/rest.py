@@ -11,6 +11,9 @@ class RestCaller:
     def submit_guess(self, guess):
         return requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}').json()
 
+    def get_score_board(self):
+        return requests.get(url=f'{self.api_url}/scores').json()
+
 
 def print_result(result):
     print(f"\nNumber is {str(result['correctNumber'])}")

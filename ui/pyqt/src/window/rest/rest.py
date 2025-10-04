@@ -1,4 +1,6 @@
+import json
 import requests
+
 
 class RestCaller:
     api_url = ""
@@ -8,12 +10,25 @@ class RestCaller:
         self.api_url = config_tuple[0]
         self.secret_id = config_tuple[1]
 
+    def set_api_url(self, api_url):
+        self.api_url = api_url
+
+    def get_api_url(self):
+        return self.api_url
+
     def submit_guess(self, guess):
         return requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}').json()
 
     def get_score_board(self):
         return requests.get(url=f'{self.api_url}/scores').json()
 
+    def register(self, username, email):
+        response = requests.post(url=f'{self.api_url}/register',
+                                 headers={'Content-Type': 'application/json'},
+                                 data=json.dumps({'userName': f'{username}',
+                                                  'email': f'{email}'})
+                                 )
+        return response.status_code, response.json()
 
 def print_result(result):
     print(f"\nNumber is {str(result['correctNumber'])}")

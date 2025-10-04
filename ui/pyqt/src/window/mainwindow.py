@@ -1,8 +1,6 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QMainWindow, QPushButton, QLabel, QComboBox, QWidget, QTextEdit
-from rest.rest import RestCaller
 from scoreboard import ScoreBoard
-from util.configutil import get_config_from_file
 from util.layoututil import get_main_layout, get_horizontal_layout_with_widgets_and_alignment
 
 
@@ -44,10 +42,9 @@ class MainWindow(QMainWindow):
         self.scoreboard_button = QPushButton("View scoreboard")
         self.scoreboard_button.clicked.connect(self.show_scoreboard)
 
-
-    def __init__(self):
+    def __init__(self, rest_caller):
         super().__init__()
-        self.rest_caller = RestCaller(get_config_from_file())
+        self.rest_caller = rest_caller
         self.setWindowTitle("Pick a number")
         self.create_buttons()
         self.create_labels()

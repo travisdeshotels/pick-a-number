@@ -1,35 +1,9 @@
 from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout
 
-def get_main_layout(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5, horizontal_layout6, horizontal_layout7):
+def get_main_layout(*layouts):
     vertical_layout = QVBoxLayout()
-    vertical_layout.addLayout(horizontal_layout1)
-    vertical_layout.addLayout(horizontal_layout2)
-    vertical_layout.addLayout(horizontal_layout3)
-    vertical_layout.addLayout(horizontal_layout4)
-    vertical_layout.addLayout(horizontal_layout5)
-    vertical_layout.addLayout(horizontal_layout6)
-    vertical_layout.addLayout(horizontal_layout7)
-
-    return vertical_layout
-
-def get_main_layout_for_config_window_no_secret(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5, horizontal_layout6):
-    vertical_layout = QVBoxLayout()
-    vertical_layout.addLayout(horizontal_layout1)
-    vertical_layout.addLayout(horizontal_layout2)
-    vertical_layout.addLayout(horizontal_layout3)
-    vertical_layout.addLayout(horizontal_layout4)
-    vertical_layout.addLayout(horizontal_layout5)
-    vertical_layout.addLayout(horizontal_layout6)
-
-    return vertical_layout
-
-def get_main_layout_for_config_window_with_secret(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5):
-    vertical_layout = QVBoxLayout()
-    vertical_layout.addLayout(horizontal_layout1)
-    vertical_layout.addLayout(horizontal_layout2)
-    vertical_layout.addLayout(horizontal_layout3)
-    vertical_layout.addLayout(horizontal_layout4)
-    vertical_layout.addLayout(horizontal_layout5)
+    for layout in layouts:
+        vertical_layout.addLayout(layout)
 
     return vertical_layout
 

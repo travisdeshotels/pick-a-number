@@ -2,7 +2,7 @@ import sys
 
 from PyQt6.QtWidgets import QLabel, QMainWindow, QPushButton, QWidget, QLineEdit
 
-from util.layoututil import get_main_layout_for_config_window_no_secret, get_main_layout_for_config_window_with_secret
+from util.layoututil import get_main_layout
 from util.layoututil import get_horizontal_layout_with_widgets_and_alignment
 
 class ConfigWindowWithSecret(QMainWindow):
@@ -19,7 +19,7 @@ class ConfigWindowWithSecret(QMainWindow):
         self.api_text.setPlaceholderText("API URL")
         self.rest_caller = rest_caller
         widget = QWidget()
-        widget.setLayout(get_main_layout_for_config_window_with_secret(
+        widget.setLayout(get_main_layout(
             get_horizontal_layout_with_widgets_and_alignment([self.header_label]),
             get_horizontal_layout_with_widgets_and_alignment([self.secret_id_text]),
             get_horizontal_layout_with_widgets_and_alignment([self.header_label2]),
@@ -48,7 +48,7 @@ class ConfigWindowNoSecret(QMainWindow):
         self.api_text.setPlaceholderText("API URL")
         self.rest_caller = rest_caller
         widget = QWidget()
-        widget.setLayout(get_main_layout_for_config_window_no_secret(
+        widget.setLayout(get_main_layout(
             get_horizontal_layout_with_widgets_and_alignment([self.header_label1]),
             get_horizontal_layout_with_widgets_and_alignment([self.email_text]),
             get_horizontal_layout_with_widgets_and_alignment([self.username_text]),

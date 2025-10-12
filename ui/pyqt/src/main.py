@@ -5,12 +5,12 @@ from PyQt6.QtWidgets import QApplication
 from window.prompt import CustomDialog
 from window.mainwindow import MainWindow
 from window.configprompt import ConfigWindowWithSecret, ConfigWindowNoSecret
-import window.util.configutil as configutil
-from window.rest.rest import RestCaller
+from window.util import RestCaller, ConfigUtil
 
 app = QApplication(sys.argv)
-if configutil.is_player_config_present():
-    window = MainWindow(RestCaller(configutil.get_config_from_file()))
+config_util = ConfigUtil()
+if config_util.is_player_config_present():
+    window = MainWindow(RestCaller(config_util.get_config_from_file()))
 else:
     user_has_secret_key = CustomDialog()
     if user_has_secret_key.exec():

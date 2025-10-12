@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTextEdit, QVBoxLayout, QLabel, QDialog, QDialogButtonBox
 
-from util.layoututil import get_horizontal_layout_with_widgets_and_alignment
+from util import get_horizontal_layout_with_widgets_and_alignment
 
 class ScoreBoard(QDialog):
     def __init__(self, rest_caller):

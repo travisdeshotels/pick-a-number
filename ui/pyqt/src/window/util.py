@@ -1,5 +1,6 @@
 import json
 import requests
+from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout
 
 
 class RestCaller:
@@ -30,16 +31,37 @@ class RestCaller:
                                  )
         return response.status_code, response.json()
 
-def print_result(result):
-    print(f"\nNumber is {str(result['correctNumber'])}")
-    print("You win!" if result['result'] == 'win'
-          else f"You lost with a guess of {str(result['guess'])}")
-    print()
+
+class ConfigUtil:
+    filename = ""
+
+    def __init__(self):
+        self.filename = '.player_config'
+
+    def get_config_from_file(self):
+        with open(self.filename, "r") as config:
+            x, y = config.read().split(",")
+            return x, y
+
+    def is_player_config_present(self):
+        from pathlib import Path
+        my_file = Path(self.filename)
+        return my_file.is_file()
 
 
-def print_stats(stats, username):
-    print(f'{username} stats')
-    print(f"wins: {str(stats['wins'])}")
-    print(f"most guessed: {str(stats['mostGuessed'])}")
-    print(f"total guesses: {str(stats['total'])}")
-    print()
+def get_main_layout(*layouts):
+    vertical_layout = QVBoxLayout()
+    for layout in layouts:
+        vertical_layout.addLayout(layout)
+
+    return vertical_layout
+
+def get_horizontal_layout_with_widgets_and_alignment(widgets, alignment=None):
+    layout = QHBoxLayout()
+    for widget in widgets:
+        layout.addWidget(widget)
+    if alignment is not None:
+        layout.setAlignment(alignment)
+
+    return layout
+

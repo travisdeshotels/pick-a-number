@@ -2,8 +2,7 @@ import sys
 
 from PyQt6.QtWidgets import QLabel, QMainWindow, QPushButton, QWidget, QLineEdit
 
-from util.layoututil import get_main_layout
-from util.layoututil import get_horizontal_layout_with_widgets_and_alignment
+from util import get_horizontal_layout_with_widgets_and_alignment, get_main_layout
 
 class ConfigWindowWithSecret(QMainWindow):
     def __init__(self, rest_caller):

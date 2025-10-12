@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QMainWindow, QPushButton, QLabel, QComboBox, QWidget, QTextEdit
 from scoreboard import ScoreBoard
-from util.layoututil import get_main_layout, get_horizontal_layout_with_widgets_and_alignment
+from util import get_main_layout, get_horizontal_layout_with_widgets_and_alignment
 
 
 class MainWindow(QMainWindow):

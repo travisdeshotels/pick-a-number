@@ -12,7 +12,7 @@ def get_main_layout(horizontal_layout1, horizontal_layout2, horizontal_layout3, 
 
     return vertical_layout
 
-def get_main_layout_for_config_window(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5, horizontal_layout6, horizontal_layout7, horizontal_layout8):
+def get_main_layout_for_config_window_no_secret(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5, horizontal_layout6):
     vertical_layout = QVBoxLayout()
     vertical_layout.addLayout(horizontal_layout1)
     vertical_layout.addLayout(horizontal_layout2)
@@ -20,8 +20,16 @@ def get_main_layout_for_config_window(horizontal_layout1, horizontal_layout2, ho
     vertical_layout.addLayout(horizontal_layout4)
     vertical_layout.addLayout(horizontal_layout5)
     vertical_layout.addLayout(horizontal_layout6)
-    vertical_layout.addLayout(horizontal_layout7)
-    vertical_layout.addLayout(horizontal_layout8)
+
+    return vertical_layout
+
+def get_main_layout_for_config_window_with_secret(horizontal_layout1, horizontal_layout2, horizontal_layout3, horizontal_layout4, horizontal_layout5):
+    vertical_layout = QVBoxLayout()
+    vertical_layout.addLayout(horizontal_layout1)
+    vertical_layout.addLayout(horizontal_layout2)
+    vertical_layout.addLayout(horizontal_layout3)
+    vertical_layout.addLayout(horizontal_layout4)
+    vertical_layout.addLayout(horizontal_layout5)
 
     return vertical_layout
 

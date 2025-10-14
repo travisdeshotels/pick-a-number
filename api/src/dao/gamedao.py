@@ -1,11 +1,12 @@
-import logging
 import os
 import sqlite3
 import sys
 import uuid
+import util.loggingutil as log
+
 
 if not (SQLITE_DB := os.environ.get('SQLITE_DB')):
-    logging.error('SQLITE_DB is not set! Set it to the location of your SQLITE database file!')
+    log.logger.error('SQLITE_DB is not set! Set it to the location of your SQLITE database file!')
     sys.exit()
 
 

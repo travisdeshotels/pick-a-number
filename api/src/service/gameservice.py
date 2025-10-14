@@ -3,7 +3,7 @@ from random import randint
 
 from exception.invalidguessexception import InvalidGuessException
 from exception.baddataexception import BadDataException
-
+import util.loggingutil as log
 
 def register_new_user(user_name, email):
     return dao.add_player(user_name, email)
@@ -20,6 +20,10 @@ def play(secret_id, guess):
     result['result']['guess'] = guess
     result['result']['correctNumber'] = correct_number
     result['result']['result'] = 'win' if correct_number == guess else 'lose'
+    log.logger.debug(f'Player {dao.get_player_info_by_secret_id(secret_id)["username"]} '
+                     f'Result guess {result["result"]["guess"]} correct {result["result"]["correctNumber"]} '
+                     f'{result["result"]["result"]}')
+
     return result
 
 

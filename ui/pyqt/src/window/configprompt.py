@@ -64,15 +64,17 @@ class ConfigWindowNoSecret(QMainWindow):
 
 def save(rest_api, rest_caller, secret_id=None, username=None, email=None):
     rest_caller.set_api_url(rest_api)
-    if secret_id:
-        if rest_caller.get_score_board():
-            write_output_file(rest_api, secret_id)
-        else:
-            write_error_to_output_file()
+    if not rest_caller.is_api_healthy():
+        write_error_to_output_file()
+    elif secret_id:
+        write_output_file(rest_api, secret_id)
     else:
         response_code, response_json = rest_caller.register(username, email)
-        if response_code == 201:
+        if response_code is None or response_code != 201:
+            write_error_to_output_file()
+        else:
             write_output_file(rest_api, response_json.get('secretId'))
+
 
 def write_output_file(api_url, secret_id):
     with open('.player_config', 'w') as config:

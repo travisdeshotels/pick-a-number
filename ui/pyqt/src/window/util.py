@@ -20,6 +20,9 @@ class RestCaller:
     def submit_guess(self, guess):
         return requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}').json()
 
+    def is_api_healthy(self):
+        return self.get_score_board() is not None
+
     def get_score_board(self):
         response = None
         try:
@@ -31,12 +34,15 @@ class RestCaller:
         return response
 
     def register(self, username, email):
-        response = requests.post(url=f'{self.api_url}/register',
-                                 headers={'Content-Type': 'application/json'},
-                                 data=json.dumps({'userName': f'{username}',
-                                                  'email': f'{email}'})
-                                 )
-        return response.status_code, response.json()
+        try:
+            response = requests.post(url=f'{self.api_url}/register',
+                                    headers={'Content-Type': 'application/json'},
+                                    data=json.dumps({'userName': f'{username}',
+                                                     'email': f'{email}'})
+                                    )
+            return response.status_code, response.json()
+        except requests.exceptions.MissingSchema:
+            return None, None
 
 
 class ConfigUtil:
@@ -71,4 +77,3 @@ def get_horizontal_layout_with_widgets_and_alignment(widgets, alignment=None):
         layout.setAlignment(alignment)
 
     return layout
-

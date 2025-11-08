@@ -1,11 +1,20 @@
 import sys
 
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QDialog
 
 from window.prompt import CustomDialog
 from window.mainwindow import MainWindow
 from window.configprompt import ConfigWindowWithSecret, ConfigWindowNoSecret
 from window.util import RestCaller, ConfigUtil
+from window.error import ErrorDialog
+import os
+
+def delete_error_file():
+    try:
+        os.remove('.player_config')
+    except OSError:
+        pass
+
 
 app = QApplication(sys.argv)
 config_util = ConfigUtil()
@@ -19,3 +28,8 @@ else:
         window = ConfigWindowNoSecret(RestCaller((None, None)))
 window.show()
 app.exec()
+conf_values = config_util.get_config_from_file()
+if conf_values[0] == "Error":
+    delete_error_file()
+    dlg = ErrorDialog()
+    dlg.exec()

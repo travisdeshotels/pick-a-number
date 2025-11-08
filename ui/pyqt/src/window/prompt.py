@@ -5,7 +5,7 @@ class CustomDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("HELLO!")
+        self.setWindowTitle("Missing config")
 
         button = (
             QDialogButtonBox.StandardButton.Yes | QDialogButtonBox.StandardButton.No

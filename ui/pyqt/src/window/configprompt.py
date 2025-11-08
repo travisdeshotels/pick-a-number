@@ -1,5 +1,3 @@
-import sys
-
 from PyQt6.QtWidgets import QLabel, QMainWindow, QPushButton, QWidget, QLineEdit
 
 from util import get_horizontal_layout_with_widgets_and_alignment, get_main_layout
@@ -29,6 +27,7 @@ class ConfigWindowWithSecret(QMainWindow):
 
     def save(self):
         save(rest_api=self.api_text.text(), rest_caller=self.rest_caller, secret_id=self.secret_id_text.text())
+        self.close()
 
 
 class ConfigWindowNoSecret(QMainWindow):
@@ -61,18 +60,24 @@ class ConfigWindowNoSecret(QMainWindow):
         save(rest_api=self.api_text.text(), rest_caller=self.rest_caller,
              username=self.username_text.text(), email=self.email_text.text()
              )
-
+        self.close()
 
 def save(rest_api, rest_caller, secret_id=None, username=None, email=None):
+    rest_caller.set_api_url(rest_api)
     if secret_id:
-        write_output_file(rest_api, secret_id)
+        if rest_caller.get_score_board():
+            write_output_file(rest_api, secret_id)
+        else:
+            write_error_to_output_file()
     else:
-        rest_caller.set_api_url(rest_api)
         response_code, response_json = rest_caller.register(username, email)
         if response_code == 201:
             write_output_file(rest_api, response_json.get('secretId'))
-    sys.exit()
 
 def write_output_file(api_url, secret_id):
     with open('.player_config', 'w') as config:
         config.write(f"{api_url},{secret_id}")
+
+def write_error_to_output_file():
+    with open('.player_config', 'w') as config:
+        config.write("Error, Error")

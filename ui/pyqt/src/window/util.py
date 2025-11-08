@@ -21,7 +21,14 @@ class RestCaller:
         return requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}').json()
 
     def get_score_board(self):
-        return requests.get(url=f'{self.api_url}/scores').json()
+        response = None
+        try:
+            res = requests.get(url=f'{self.api_url}/scores')
+            if res.status_code == 200:
+                response = res.json()
+        except requests.exceptions.MissingSchema:
+            pass
+        return response
 
     def register(self, username, email):
         response = requests.post(url=f'{self.api_url}/register',

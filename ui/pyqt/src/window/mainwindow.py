@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QMainWindow, QPushButton, QLabel, QComboBox, QWidget, QTextEdit
 from scoreboard import ScoreBoard
-from util import get_main_layout, get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR
+from util import get_main_layout, get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR, INVALID_REQUEST_ERROR
 
 
 class MainWindow(QMainWindow):
@@ -71,8 +71,11 @@ class MainWindow(QMainWindow):
 
     def submit_guess(self):
         response_dict = self.rest_caller.submit_guess(self.guess)
-        if response_dict is None:
-            self.display_error(API_CONNECTION_ERROR)
+        if response_dict.get('error'):
+            if response_dict.get('error') == 1:
+                self.display_error(API_CONNECTION_ERROR)
+            else:
+                self.display_error(INVALID_REQUEST_ERROR)
         else:
             self.display_result(response_dict['result'])
             self.display_stats(response_dict['username'], response_dict['stats'])

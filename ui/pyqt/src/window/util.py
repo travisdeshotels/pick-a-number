@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout
 
 
 API_CONNECTION_ERROR = "Error: unable to connect to the API."
+INVALID_REQUEST_ERROR = "Error: invalid request. Check your secret key."
 
 class RestCaller:
     api_url = ""
@@ -21,9 +22,13 @@ class RestCaller:
 
     def submit_guess(self, guess):
         try:
-            return requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}').json()
+            response = requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}')
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {'error': 2}
         except requests.exceptions.ConnectionError:
-            return None
+            return {'error': 1}
 
     def is_api_healthy(self):
         return self.get_score_board() is not None

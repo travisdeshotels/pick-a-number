@@ -3,6 +3,8 @@ import requests
 from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout
 
 
+API_CONNECTION_ERROR = "Error: unable to connect to the API."
+
 class RestCaller:
     api_url = ""
     secret_id = ""
@@ -18,7 +20,10 @@ class RestCaller:
         return self.api_url
 
     def submit_guess(self, guess):
-        return requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}').json()
+        try:
+            return requests.get(headers={'Secret': self.secret_id}, url=f'{self.api_url}?guess={guess}').json()
+        except requests.exceptions.ConnectionError:
+            return None
 
     def is_api_healthy(self):
         return self.get_score_board() is not None
@@ -29,7 +34,7 @@ class RestCaller:
             res = requests.get(url=f'{self.api_url}/scores')
             if res.status_code == 200:
                 response = res.json()
-        except requests.exceptions.MissingSchema:
+        except (requests.exceptions.MissingSchema, requests.exceptions.ConnectionError):
             pass
         return response
 

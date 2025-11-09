@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QMainWindow, QPushButton, QLabel, QComboBox, QWidget, QTextEdit
 from scoreboard import ScoreBoard
-from util import get_main_layout, get_horizontal_layout_with_widgets_and_alignment
+from util import get_main_layout, get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR
 
 
 class MainWindow(QMainWindow):
@@ -71,14 +71,20 @@ class MainWindow(QMainWindow):
 
     def submit_guess(self):
         response_dict = self.rest_caller.submit_guess(self.guess)
-        self.display_result(response_dict['result'])
-        self.display_stats(response_dict['username'], response_dict['stats'])
+        if response_dict is None:
+            self.display_error(API_CONNECTION_ERROR)
+        else:
+            self.display_result(response_dict['result'])
+            self.display_stats(response_dict['username'], response_dict['stats'])
 
     def display_result(self, result):
         self.result_textbox.setPlainText('YOU WIN!' if result['result'] == 'win' else 'YOU LOSE.\n'
                                          f'Your guess: {result["guess"]}\n'
                                          f'Correct number: {result["correctNumber"]}'
                                          )
+
+    def display_error(self, msg):
+        self.result_textbox.setPlainText(msg)
 
     def display_stats(self, username, stats):
         self.label_stats.setText(f'Stats for {username}')

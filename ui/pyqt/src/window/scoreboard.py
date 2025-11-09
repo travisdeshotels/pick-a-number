@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTextEdit, QVBoxLayout, QLabel, QDialog, QDialogButtonBox
 
-from util import get_horizontal_layout_with_widgets_and_alignment
+from util import get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR
 
 class ScoreBoard(QDialog):
     def __init__(self, rest_caller):
@@ -12,8 +12,11 @@ class ScoreBoard(QDialog):
         text = QTextEdit()
         score_board_txt = ""
         scores = rest_caller.get_score_board()
-        for score in scores:
-            score_board_txt = score_board_txt + f'{score["player"]}: {score["score"]}\n'
+        if scores is None:
+            score_board_txt = API_CONNECTION_ERROR
+        else:
+            for score in scores:
+                score_board_txt = score_board_txt + f'{score["player"]}: {score["score"]}\n'
         text.setText(score_board_txt)
         text.setReadOnly(True)
         layout = QVBoxLayout()

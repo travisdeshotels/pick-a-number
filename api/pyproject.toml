@@ -1,0 +1,15 @@
+[project]
+name = "pick-a-number-api"
+version = "1.0.0"
+description = "Backend for pick a number"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "graypy"
+]
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13"]
+build-backend = "uv_build"

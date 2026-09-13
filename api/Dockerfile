@@ -1,9 +1,8 @@
-FROM python:3.11-bookworm
+FROM astral/uv:python3.14-bookworm-slim
 
 WORKDIR /app
 
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+COPY pyproject.toml ./
 
 COPY src /app
 COPY db /app/db
@@ -14,4 +13,4 @@ ENV SQLITE_DB=/app/db/game.db
 
 EXPOSE 8000
 
-CMD [ "uvicorn", "main:app", "--reload", "--host", "0.0.0.0" ]
+CMD [ "uv", "run", "uvicorn", "main:app", "--reload", "--host", "0.0.0.0" ]

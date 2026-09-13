@@ -1,7 +1,7 @@
 import os
 import requests
-from terminallibs.colors import blue, cyan, green, yellow, underline, bold_blue, fail
-from terminallibs.playerconfig import PlayerConfig
+from terminal_libs.colors import blue, cyan, green, yellow, underline, bold_blue, fail
+from terminal_libs.playerconfig import PlayerConfig
 
 
 def print_result(result):

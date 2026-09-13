@@ -1,5 +1,5 @@
-from terminallibs.colors import bold_yellow
-from lib.playhelper import PlayHelper
+from terminal_libs.colors import bold_yellow
+from terminal_helper.playhelper import PlayHelper
 
 
 play_helper = PlayHelper('.player_config')

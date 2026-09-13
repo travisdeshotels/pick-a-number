@@ -15,6 +15,7 @@ class PlayerConfig:
         user_name = input("Enter user name: ")
         email = input("Enter email address: ")
         response = requests.post(url=f'{self.url}/register',
+                                 headers={'Content-Type': 'application/json'},
                                  data=json.dumps({'userName': user_name, 'email': email}))
         return response.json()['secretId']
 

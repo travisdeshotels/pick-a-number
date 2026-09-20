@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTextEdit, QVBoxLayout, QLabel, QDialog, QDialogButtonBox
 
-from util import get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR
+from window.util import get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR
 
 class ScoreBoard(QDialog):
     def __init__(self, rest_caller):

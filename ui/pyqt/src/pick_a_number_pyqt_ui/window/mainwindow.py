@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QMainWindow, QPushButton, QLabel, QComboBox, QWidget, QTextEdit
-from scoreboard import ScoreBoard
-from util import get_main_layout, get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR, INVALID_REQUEST_ERROR
+from window.scoreboard import ScoreBoard
+from window.util import get_main_layout, get_horizontal_layout_with_widgets_and_alignment, API_CONNECTION_ERROR, INVALID_REQUEST_ERROR
 
 
 class MainWindow(QMainWindow):

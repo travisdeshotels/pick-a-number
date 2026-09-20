@@ -110,7 +110,7 @@ wheels = [
 [[package]]
 name = "pick-a-number-api"
 version = "1.0.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "graypy" },
